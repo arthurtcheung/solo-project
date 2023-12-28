@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const userRoute = require('./routes/users');
 const pinRoute = require('./routes/pins');
+
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ mongoose
   })
 
 // Define route handlers
+app.use('/api/users', userRoute);
 app.use('/api/pins', pinRoute);
 
 // Turns computer into server to listen for incoming requests to a specific port
