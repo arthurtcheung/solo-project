@@ -11,7 +11,7 @@ const PinSchema = new mongoose.Schema({
     rquire: true,
     min: 3
   },
-  desc: {
+  review: {
     type: String,
     rquire: true,
     min: 3

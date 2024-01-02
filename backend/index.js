@@ -3,12 +3,15 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoute = require('./routes/users');
 const pinRoute = require('./routes/pins');
-
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000; // NOTE: server port stored in .env file
+
+// Enable CORS for all routes (before parsing the JSON body)
+app.use(cors());
 
 // Handle parsing the JSON body of every request
 app.use(express.json());
