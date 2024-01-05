@@ -56,3 +56,39 @@ input::placeholder, textarea::placeholder {
   background-color: tomato;
   cursor: pointer;
 }
+
+button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.loginButton {
+  background-color: teal;
+  position: absolute;
+  top: 10px;
+  right: 80px;
+}
+
+.logoutButton {
+  background-color: tomato;
+  position: absolute;
+  top: 10px; /* Adjust this value to create space between buttons */
+  right: 10px;
+}
+
+.registerButton {
+  background-color: slateblue;
+  position: absolute;
+  top: 10px; /* Adjust this value to create space between buttons */
+  right: 10px;
+}
+
+.registerForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
