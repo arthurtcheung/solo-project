@@ -6,9 +6,13 @@ import './app.css';
 import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
 import { format } from 'timeago.js'; // NOTE: JS library used to format datetime eg: '3 hours ago'
 import Register from './components/Register.jsx';
+import Login from './components/Login.jsx';
+
 
 function App() {
   console.log('Rendering map...')
+
+  const myStorage = window.localStorage;
 
   // Track the current user logged in
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,6 +34,10 @@ function App() {
   const [title, setTitle] = useState(null);
   const [review, setReview] = useState(null);
   const [rating, setRating] = useState(0);
+
+  // Track state of register and login windows
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   // Grab all pins as side-effect on app render
   useEffect(() => {
@@ -153,13 +161,12 @@ function App() {
         <button className='logoutButton'>Log out</button> 
         :  
         <div>
-          <button className='loginButton'>Login</button>
-          <button className='registerButton'>Register</button>
+          <button className='loginButton' onClick={ () => setShowLogin(true) } >Login</button>
+          <button className='registerButton' onClick={ () => setShowRegister(true) } >Register</button>
         </div>
       }
-      <div className='registerForm'>
-        <Register />
-      </div>
+      { showRegister && <div className='registerForm'><Register setShowRegister={ setShowRegister }/></div> }
+      { showLogin && <div className='loginForm'><Login setShowLogin={ setShowLogin } myStorage={ myStorage } setCurrentUser={ setCurrentUser } /></div> }
     </div>
   );
 }
