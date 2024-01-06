@@ -15,7 +15,7 @@ function App() {
   const myStorage = window.localStorage;
 
   // Track the current user logged in
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(myStorage.getItem('user'));
 
   // Track where user double clicks map
   const [newPlace, setNewPlace] = useState(null);
@@ -25,7 +25,7 @@ function App() {
 
   // Track the marker id that user clicks on
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
-  console.log('currentPlaceId: ', currentPlaceId);
+  // console.log('currentPlaceId: ', currentPlaceId);
 
   // Track viewport
   const [viewState, setViewState] = useState({longitude: -95.8, latitude: 40, zoom: 3.8})
@@ -96,6 +96,13 @@ function App() {
     }
   }
 
+  // Handle logic when user clicks 'logout' button
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    myStorage.removeItem('user');
+    setCurrentUser(null);
+  }
+
   return (
     <div>
       <Map
@@ -158,7 +165,7 @@ function App() {
         ) } 
       </Map>
       { currentUser ?
-        <button className='logoutButton'>Log out</button> 
+        <button className='logoutButton' onClick={ handleLogout }>Log out</button> 
         :  
         <div>
           <button className='loginButton' onClick={ () => setShowLogin(true) } >Login</button>
