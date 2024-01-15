@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import './login.css';
+
 import PlaceIcon from '@mui/icons-material/Place'; // NOTE: react component library; includes pre-built components
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
@@ -28,7 +29,6 @@ export default function Login({ setShowLogin, myStorage, setCurrentUser }) {
         setShowLogin(false);
         setFailure(false);
     } catch(err) {
-        console.log('ERROR REGISTERING USER: ', err);
         setFailure(true);
     }
   }
@@ -37,7 +37,7 @@ export default function Login({ setShowLogin, myStorage, setCurrentUser }) {
     <div className='loginContainer'>
       <div className='logo'>
         <PlaceIcon />
-        Acadia
+        Yosemite
       </div>
       <form onSubmit={ handleSubmit }>
         <input type='text' placeholder='username' ref={ nameRef } />

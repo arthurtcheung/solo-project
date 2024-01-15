@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl'; // NOTE: react library; provides pre-built react components for mapbox api
-import PlaceIcon from '@mui/icons-material/Place'; // NOTE: react component library; includes pre-built components
-import StarIcon from '@mui/icons-material/Star';
 import './app.css';
-import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
-import { format } from 'timeago.js'; // NOTE: JS library used to format datetime eg: '3 hours ago'
 import Register from './components/Register.jsx';
 import Login from './components/Login.jsx';
+
+import Map, { Marker, Popup } from 'react-map-gl'; // NOTE: react library; provides pre-built react components for mapbox api
+import PlaceIcon from '@mui/icons-material/Place'; // NOTE: react component library; provides components that render the icons as SVGs 
+import StarIcon from '@mui/icons-material/Star';
+import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
+import { format } from 'timeago.js'; // NOTE: JS library used to format datetime eg: '3 hours ago'
 
 
 function App() {
@@ -45,7 +46,6 @@ function App() {
       try {
           console.log('Retrieving pins...')
           const res = await axios.get('/pins');
-          console.log('Pins found: ', res.data);
           setPins(res.data);
       } catch(err) {
           console.log(err);
@@ -56,10 +56,8 @@ function App() {
 
   // Update marker id to be the one user clicked on
   const handleMarkerClick = (id, long, lat) => {
-    console.log('id of selected marker: ', id);
+    console.log('New marker selected...');
     setCurrentPlaceId(id);
-    console.log('long: ', long);
-    console.log('lat: ', lat);
     setViewState({...viewState, longitude: long, latitude: lat});
   }
 
@@ -67,8 +65,7 @@ function App() {
   const handleMapDoubleClick = (e) => {
     // console.log('double click event: ', e);
     const { lng, lat } = e.lngLat;
-    console.log('long: ', lng);
-    console.log('lat: ', lat);
+    console.log(`Updating long to ${lng} and lat to ${lat}...`)
     setNewPlace({lat, lng});
   }
 
@@ -86,9 +83,9 @@ function App() {
       long: newPlace.lng
     }
     try {
-        console.log('new marker being added: ', newMarker);
         // Make a POST request to the '/pins' endpoint w/ new marker object (adds new marker to db)
         const res = await axios.post('/pins', newMarker);
+        console.log('Adding new marker to db...');
         setPins([...pins, res.data]);
         setNewPlace(null);
     } catch(err) {
@@ -99,6 +96,7 @@ function App() {
   // Handle logic when user clicks 'logout' button
   const handleLogout = async (e) => {
     e.preventDefault();
+    console.log('Logging user out...');
     myStorage.removeItem('user');
     setCurrentUser(null);
   }

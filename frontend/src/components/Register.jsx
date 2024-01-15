@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import './register.css';
+
 import PlaceIcon from '@mui/icons-material/Place'; // NOTE: react component library; includes pre-built components
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
@@ -31,7 +32,6 @@ export default function Register({ setShowRegister }) {
         setFailure(false);
         setSuccess(true);
     } catch(err) {
-        console.log('ERROR REGISTERING USER: ', err);
         setFailure(true);
     }
   }
@@ -40,7 +40,7 @@ export default function Register({ setShowRegister }) {
     <div className='registerContainer'>
       <div className='logo'>
         <PlaceIcon />
-        Acadia
+        Yosemite
       </div>
       <form onSubmit={ handleSubmit }>
         <input type='text' placeholder='username' ref={ nameRef } />
